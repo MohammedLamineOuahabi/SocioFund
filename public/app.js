@@ -39,6 +39,13 @@ const showLoginLink = document.getElementById('show-login');
 const logoutBtn = document.getElementById('logout-btn');
 const projectsContainer = document.getElementById('projects-container');
 
+// عنصر شريط البحث
+const searchInput = document.getElementById('search-input');
+const searchLoading = document.getElementById('search-loading'); // الرسالة أثناء البحث
+
+// قائمة المشاريع المحملة بالكامل
+let allProjects = [];
+
 // عناصر النافذة المنبثقة للمشروع
 const openProjectModalBtn = document.getElementById('open-project-modal');
 const projectModal = document.getElementById('project-modal');
@@ -215,6 +222,7 @@ if (projectForm) {
       .then(() => {
         projectForm.reset();
         projectModal.classList.add('hidden');
+        searchInput.value = '';
         loadProjects();
       })
       .catch(err => {
@@ -228,7 +236,9 @@ function loadProjects() {
   fetch(`${API_BASE_URL}/projects`)
     .then(res => res.json())
     .then(data => {
-      renderProjects(data);
+      // تخزين جميع المشاريع وعرضها
+      allProjects = Array.isArray(data) ? data : [];
+      filterProjects();
     })
     .catch(err => {
       console.error(err);
@@ -291,6 +301,7 @@ function renderProjects(projects) {
           return res.json();
         })
         .then(() => {
+          if (searchLoading) searchLoading.classList.add('hidden');
           loadProjects();
         })
         .catch(err => {
@@ -304,4 +315,40 @@ function renderProjects(projects) {
 // تهيئة التطبيق
 document.addEventListener('DOMContentLoaded', () => {
   init();
+  // إضافة مستمع للبحث إذا كان موجوداً
+  if (searchInput) {
+    // تنفيذ البحث فقط عند الضغط على مفتاح Enter
+    searchInput.addEventListener('keypress', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        filterProjects();
+      }
+    });
+  }
 });
+
+// تصفية المشاريع وعرض النتائج
+function filterProjects() {
+  const query = searchInput ? searchInput.value.trim() : '';
+  if (!query) {
+    renderProjects(allProjects);
+    return;
+  }
+
+  // إظهار رسالة التحميل وإخفاء النتائج مؤقتًا
+  if (searchLoading) searchLoading.classList.remove('hidden');
+  projectsContainer.innerHTML = '';
+
+  fetch(`${API_BASE_URL}/projects?search=${encodeURIComponent(query)}`)
+    .then(res => res.json())
+    .then(data => {
+      renderProjects(Array.isArray(data) ? data : []);
+    })
+    .catch(err => {
+      console.error(err);
+      alert('فشل البحث عن المشاريع');
+    })
+    .finally(() => {
+      if (searchLoading) searchLoading.classList.add('hidden');
+    });
+}

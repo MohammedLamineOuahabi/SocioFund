@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SocioFund</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- استخدام خط Cairo لأناقة الخط العربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- أيقونات FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
   <div class="container">
     <!-- قسم المصادقة -->
@@ -21,7 +21,8 @@
           <p class="tagline">معاً نحو مجتمع أفضل</p>
         </div>
       </div>
-      <!-- بطاقة تسجيل الدخول -->
+
+      <!-- تسجيل الدخول -->
       <div id="login-card" class="auth-card">
         <h2>تسجيل الدخول</h2>
         <form id="login-form">
@@ -37,7 +38,8 @@
         </form>
         <p class="toggle-text">ليس لديك حساب؟ <a href="#" id="show-register">إنشاء حساب جديد</a></p>
       </div>
-      <!-- بطاقة التسجيل -->
+
+      <!-- التسجيل -->
       <div id="register-card" class="auth-card hidden">
         <h2>إنشاء حساب جديد</h2>
         <form id="register-form">
@@ -59,7 +61,7 @@
       </div>
     </div>
 
-    <!-- قسم لوحة التحكم -->
+    <!-- لوحة التحكم -->
     <div id="dashboard" class="hidden">
       <header class="dashboard-header">
         <div class="brand-dashboard">
@@ -71,10 +73,18 @@
           <button id="logout-btn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i> خروج</button>
         </div>
       </header>
-      <!-- أزرار التحكم -->
+
+      <!-- الأزرار -->
       <div class="dashboard-actions">
         <button id="open-project-modal" class="btn-primary"><i class="fas fa-plus-circle"></i> إضافة مشروع</button>
       </div>
+
+      <!-- 🧠 حقل البحث بالذكاء الاصطناعي -->
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="ابحث باستخدام الذكاء الاصطناعي..." />
+        <p id="search-loading" class="text-primary hidden">🔍 جارٍ استخدام الذكاء الاصطناعي للبحث...</p>
+      </div>
+
       <!-- قائمة المشاريع -->
       <div id="projects-container" class="projects-grid"></div>
     </div>
@@ -113,4 +123,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>

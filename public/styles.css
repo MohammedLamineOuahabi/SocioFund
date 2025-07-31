@@ -353,6 +353,26 @@ body {
   transform: translateY(-1px);
 }
 
+/* Search bar styling */
+.search-container {
+  margin-bottom: var(--space-lg);
+}
+.search-container input {
+  width: 100%;
+  padding: 0.75rem var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s ease;
+  background: var(--background);
+  color: var(--text-primary);
+}
+.search-container input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+}
+
 /* Modal - refined */
 .modal {
   position: fixed;
