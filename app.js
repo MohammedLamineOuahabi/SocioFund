@@ -33,6 +33,6 @@ app.use((req, res) => {
 });
 
 // بدء الخادم
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`SocioFund API تعمل على المنفذ ${port}`);
 });
